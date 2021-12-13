@@ -4,8 +4,10 @@ import com.example.pis4.entity.Cashier;
 import com.example.pis4.entity.Product;
 import com.example.pis4.entity.Receipt;
 import com.example.pis4.entity.ReceiptEntry;
-import com.example.pis4.repo.ProductRepo;
-import com.example.pis4.repo.ReceiptRepo;
+import com.example.pis4.repo.dao.ProductDao;
+import com.example.pis4.repo.dao.ReceiptDao;
+import com.example.pis4.repo.jpa.ProductRepo;
+import com.example.pis4.repo.jpa.ReceiptRepo;
 import com.example.pis4.service.receipt.ReceiptService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -21,14 +23,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ReceiptServiceImpl implements ReceiptService {
-    ReceiptRepo receiptRepo;
-    ProductRepo productRepo;
+    ReceiptDao receiptDao;
+    ProductDao productDao;
 
     @Override
     public void save(String[] codes, Integer[] quantities, Cashier currentCashier) {
         List<ReceiptEntry> receiptEntryList = new ArrayList<>();
         for (int i = 0; i < codes.length; i++) {
-            Product product = productRepo.findByCode(codes[i]);
+            Product product = productDao.findByCode(codes[i]);
             Integer quantity = quantities[i];
 
             receiptEntryList.add(
@@ -51,6 +53,6 @@ public class ReceiptServiceImpl implements ReceiptService {
                 .build();
         receiptEntryList.stream().forEach(a -> a.setReceipt(receipt));
 
-        receiptRepo.save(receipt);
+        receiptDao.save(receipt);
     }
 }

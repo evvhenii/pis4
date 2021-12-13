@@ -39,9 +39,6 @@ public class AuthController {
             case ADMINISTRATOR:
                 return "redirect:/products";
         }
-        System.out.println("--------------");
-        System.out.println(cashier);
-        System.out.println("----------------");
 
         session.setAttribute("df", "ccervr");
 

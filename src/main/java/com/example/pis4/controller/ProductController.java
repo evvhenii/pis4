@@ -1,10 +1,8 @@
 package com.example.pis4.controller;
 
-import com.example.pis4.dto.LoginDto;
 import com.example.pis4.dto.ProductDto;
 import com.example.pis4.entity.Cashier;
 import com.example.pis4.entity.Product;
-import com.example.pis4.repo.ProductRepo;
 import com.example.pis4.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -41,7 +38,6 @@ public class ProductController {
         Cashier currentCashier = (Cashier) session.getAttribute("user");
 
         productService.save(productDto, currentCashier);
-
 
         return "redirect:/products";
     }

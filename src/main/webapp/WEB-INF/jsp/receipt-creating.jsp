@@ -12,10 +12,6 @@
 </head>
 <body>
 <h1>This is page for the cashier</h1>
-<% String ddd = request.getHeader("Authorization");
-    System.out.println("ddd " + ddd);
-    System.out.println("ddd1 " + response.getHeader("Authorization"));
-    %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>

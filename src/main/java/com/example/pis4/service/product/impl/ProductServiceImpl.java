@@ -5,7 +5,8 @@ import com.example.pis4.entity.Cashier;
 import com.example.pis4.entity.Product;
 import com.example.pis4.entity.RoleEnum;
 import com.example.pis4.exception.base.UnauthorizedException;
-import com.example.pis4.repo.ProductRepo;
+import com.example.pis4.repo.dao.ProductDao;
+import com.example.pis4.repo.jpa.ProductRepo;
 import com.example.pis4.service.product.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductServiceImpl implements ProductService {
-    ProductRepo productRepo;
+    ProductDao productDao;
 
     @Override
     public List<Product> findAll(Cashier currentCashier) {
         if(currentCashier.getRole().getRoleEnum() != RoleEnum.ADMINISTRATOR) {
             throw new UnauthorizedException("You are not authorized");
         }
-        return productRepo.findAll();
+        return productDao.findAll();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
             throw new UnauthorizedException("You are not authorized");
         }
 
-        productRepo.save(
+        productDao.save(
             Product.builder()
                     .code(UUID.randomUUID().toString())
                     .name(dto.getName())
